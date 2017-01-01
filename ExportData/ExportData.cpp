@@ -62,18 +62,23 @@ extern "C" __declspec(dllexport) int WINAPI ExportData(CALCINFO* pData)
 
 		FILE *pf = fopen(export_file_name, "wb");
 		if (pf != NULL) {
+			struct {
+				int file_size;	// 文件大小
+				__time32_t time;// 导出时间
+				int unit_size;	// 数据组大小
+				int num;		// 数据组数
+			} file_header;
+
 			// 数据组大小
-			int struct_size = sizeof(STKDATA) + sizeof(float) * pData->m_nNumParam;
+			file_header.unit_size = sizeof(STKDATA) + sizeof(float) * pData->m_nNumParam;
 			// 文件大小
-			int file_size = struct_size * pData->m_nNumData + 16;
-			fwrite(&file_size, sizeof(int), 1, pf);
+			file_header.file_size = file_header.unit_size * pData->m_nNumData + sizeof(file_header);
 			// 导出时间
-			__time32_t time = _time32(NULL);	// may fail after January 18, 2038
-			fwrite(&time, sizeof(__time32_t), 1, pf);
-			// 数据组大小
-			fwrite(&struct_size, sizeof(int), 1, pf);
+			_time32(&file_header.time);	// may fail after January 18, 2038
 			// 数据组数
-			fwrite(&pData->m_nNumData, sizeof(int), 1, pf);
+			file_header.num = pData->m_nNumData;
+			// 写入文件头
+			fwrite(&file_header, sizeof(file_header), 1, pf);
 
 			for (int i = 0; i < pData->m_nNumData; i++) {
 				actual_export_number += fwrite(pData->m_pData + i, sizeof(STKDATA), 1, pf);
