@@ -108,7 +108,7 @@ extern "C" __declspec(dllexport) int WINAPI ExportData(CALCINFO* pData)
 	if (pflog != NULL) {
 		SYSTEMTIME time;
 		GetLocalTime(&time);
-
+		// ¼ÇÂ¼ÈÕÖ¾
 		fprintf(pflog, "%d-%d-%d %d:%d:%d\tpData->m_strStkLabel = %s\tTime Frame = %s\tpData->m_nNumData = %d\tpData->m_nNumParam = %d\tactual_export_number = %d\n", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond, pData->m_strStkLabel, sub_folder_table[pData->m_dataType], pData->m_nNumData, pData->m_nNumParam, actual_export_number);
 		fclose(pflog);
 	}

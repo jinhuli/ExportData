@@ -13,8 +13,6 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
 x64/
 x86/
 bld/
@@ -68,6 +66,11 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
+*.lib
+*.exp
+*.tlog
+*.manifest
+*.lastbuildstate
 
 # Chutzpah Test files
 _Chutzpah*

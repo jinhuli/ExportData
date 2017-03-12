@@ -1,6 +1,6 @@
-*ExportData 使用方法:*  
-  
-1. 将编译结果ExportData.dll文件拷贝至飞狐交易师安装目录的FmlDll文件夹下
+# ExportData 使用方法: #
+
+1. 将项目编译结果ExportData.dll文件 (可以从Release目录里获得) 拷贝至飞狐交易师安装目录的FmlDll文件夹下
 2. 启动飞狐交易师, 创建一个技术指标, 代码如下:
 <pre><code>
 If Category <> C_FUTURES Then
